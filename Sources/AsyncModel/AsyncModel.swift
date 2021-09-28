@@ -2,22 +2,31 @@ import SwiftUI
 
 @MainActor
 open class AsyncModel<T>: ObservableObject {
-    @Published public private(set) var result = AsyncResult<T>()
+    @Published public private(set) var result = AsyncResult<T>.ready
 
-    public init() {}
+    let awaitBlock: () async throws -> T
 
-    open func load() async throws -> T {
-        fatalError("AsyncModel#load needs to be overriden")
+    public init(awaitBlock: @escaping () async throws -> T) {
+        self.awaitBlock = awaitBlock
     }
 
-    public func reload() async {
-        if self.result.inProgress { return }
-        self.result.startProgress()
+    public func load() async {
+        if case .inProgress = self.result { return }
+        self.result = .inProgress
 
         do {
-            self.result.finish(value: try await self.load())
+            self.result = .success(try await self.awaitBlock())
         } catch {
-            self.result.finish(error: error)
+            self.result = .failure(error)
+        }
+    }
+
+    public func loadIfNeeded() async {
+        switch self.result {
+        case .ready, .failure:
+            await self.load()
+        case .inProgress, .success:
+            break
         }
     }
 }

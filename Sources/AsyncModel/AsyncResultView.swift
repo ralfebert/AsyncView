@@ -10,17 +10,15 @@ public struct AsyncResultView<T, Content: View>: View {
     }
 
     public var body: some View {
-        if result.inProgress {
+        switch result {
+        case .ready:
+            EmptyView()
+        case .inProgress:
             ProgressView()
-        } else {
-            switch result.value {
-            case .none:
-                EmptyView()
-            case let .success(value):
-                content(value)
-            case let .failure(error):
-                ErrorView(error: error)
-            }
+        case let .success(value):
+            content(value)
+        case let .failure(error):
+            ErrorView(error: error)
         }
     }
 }
