@@ -4,10 +4,20 @@ import SwiftUI
 open class AsyncModel<T>: ObservableObject {
     @Published public private(set) var result = AsyncResult<T>.ready
 
-    public init() {}
+    public typealias AsyncOperation = () async throws -> T
+    
+    private var asyncOperationBlock: AsyncOperation = {
+        fatalError("Override asyncOperation or pass a asyncOperationBlock to use async model")
+    }
+    
+    public init(asyncOperation: AsyncOperation? = nil) {
+        if let asyncOperation = asyncOperation {
+            self.asyncOperationBlock = asyncOperation
+        }
+    }
 
     open func asyncOperation() async throws -> T {
-        fatalError("Override asyncOperation and perform your async loading task")
+        try await self.asyncOperationBlock()
     }
 
     public func load() async {
