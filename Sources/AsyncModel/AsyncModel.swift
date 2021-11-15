@@ -5,11 +5,11 @@ open class AsyncModel<T>: ObservableObject {
     @Published public private(set) var result = AsyncResult<T>.ready
 
     public typealias AsyncOperation = () async throws -> T
-    
+
     private var asyncOperationBlock: AsyncOperation = {
         fatalError("Override asyncOperation or pass a asyncOperationBlock to use async model")
     }
-    
+
     public init(asyncOperation: AsyncOperation? = nil) {
         if let asyncOperation = asyncOperation {
             self.asyncOperationBlock = asyncOperation
