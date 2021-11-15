@@ -1,8 +1,8 @@
 import SwiftUI
 
-public struct AsyncView<T, Content: View>: View {
-    @StateObject var model: AsyncModel<T>
-    let content: (_ item: T) -> Content
+public struct AsyncView<Success, Content: View>: View {
+    @StateObject var model: AsyncModel<Success>
+    let content: (_ item: Success) -> Content
 
     public var body: some View {
         AsyncModelView(model: self.model, content: self.content)
@@ -10,7 +10,7 @@ public struct AsyncView<T, Content: View>: View {
 }
 
 public extension AsyncView {
-    init(operation: @escaping AsyncModel<T>.AsyncOperation, @ViewBuilder content: @escaping (_ item: T) -> Content) {
+    init(operation: @escaping AsyncModel<Success>.AsyncOperation, @ViewBuilder content: @escaping (_ item: Success) -> Content) {
         self.init(model: AsyncModel(asyncOperation: operation), content: content)
     }
 }

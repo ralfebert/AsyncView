@@ -1,11 +1,11 @@
 import SwiftUI
 
-public struct AsyncResultView<T, Content: View>: View {
-    public let result: AsyncResult<T>
-    public let content: (_ item: T) -> Content
+public struct AsyncResultView<Success, Content: View>: View {
+    public let result: AsyncResult<Success>
+    public let content: (_ item: Success) -> Content
     public let reloadAction: (() -> Void)?
 
-    public init(result: AsyncResult<T>, reloadAction: (() -> Void)? = nil, @ViewBuilder content: @escaping (_ item: T) -> Content) {
+    public init(result: AsyncResult<Success>, reloadAction: (() -> Void)? = nil, @ViewBuilder content: @escaping (_ item: Success) -> Content) {
         self.result = result
         self.content = content
         self.reloadAction = reloadAction

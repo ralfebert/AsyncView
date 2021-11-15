@@ -1,10 +1,10 @@
 import SwiftUI
 
 @MainActor
-open class AsyncModel<T>: ObservableObject {
-    @Published public private(set) var result = AsyncResult<T>.empty
+open class AsyncModel<Success>: ObservableObject {
+    @Published public private(set) var result = AsyncResult<Success>.empty
 
-    public typealias AsyncOperation = () async throws -> T
+    public typealias AsyncOperation = () async throws -> Success
 
     private var asyncOperationBlock: AsyncOperation = {
         fatalError("Override asyncOperation or pass a asyncOperationBlock to use async model")
@@ -16,7 +16,7 @@ open class AsyncModel<T>: ObservableObject {
         }
     }
 
-    open func asyncOperation() async throws -> T {
+    open func asyncOperation() async throws -> Success {
         try await self.asyncOperationBlock()
     }
 

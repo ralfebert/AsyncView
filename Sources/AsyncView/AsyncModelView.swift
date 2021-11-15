@@ -1,10 +1,10 @@
 import SwiftUI
 
-public struct AsyncModelView<T, Content: View>: View {
-    @ObservedObject var model: AsyncModel<T>
-    public let content: (_ item: T) -> Content
+public struct AsyncModelView<Success, Content: View>: View {
+    @ObservedObject var model: AsyncModel<Success>
+    public let content: (_ item: Success) -> Content
 
-    public init(model: AsyncModel<T>, @ViewBuilder content: @escaping (_ item: T) -> Content) {
+    public init(model: AsyncModel<Success>, @ViewBuilder content: @escaping (_ item: Success) -> Content) {
         self.model = model
         self.content = content
     }
