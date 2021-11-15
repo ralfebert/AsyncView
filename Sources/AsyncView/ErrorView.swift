@@ -1,10 +1,3 @@
-//
-//  SwiftUIView.swift
-//  
-//
-//  Created by Ralf Ebert on 15.11.21.
-//
-
 import SwiftUI
 
 struct ErrorView: View {
