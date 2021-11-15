@@ -14,7 +14,9 @@ public struct AsyncResultView<Success, Content: View>: View {
     public var body: some View {
         switch result {
         case .empty:
-            EmptyView()
+            // This is a workaround: EmptyView doesn't work here because then one layer up
+            // in AsyncModelView the task would not be executed...
+            Text("")
         case .inProgress:
             ProgressView()
         case let .success(value):
