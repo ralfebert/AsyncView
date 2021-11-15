@@ -8,7 +8,7 @@ import Foundation
  This type was created to enable a generic SwiftUI View that handles the 'no value' / 'work in progress' / 'error' states which are often very similar for many different Views. See ``AsyncResultView`` for a simple example implementation for such a view.
  */
 @frozen public enum AsyncResult<Success> {
-    case ready
+    case empty
     case inProgress
     case success(Success)
     case failure(Error)

@@ -2,7 +2,7 @@ import SwiftUI
 
 @MainActor
 open class AsyncModel<T>: ObservableObject {
-    @Published public private(set) var result = AsyncResult<T>.ready
+    @Published public private(set) var result = AsyncResult<T>.empty
 
     public typealias AsyncOperation = () async throws -> T
 
@@ -33,7 +33,7 @@ open class AsyncModel<T>: ObservableObject {
 
     public func loadIfNeeded() async {
         switch self.result {
-        case .ready, .failure:
+        case .empty, .failure:
             await self.load()
         case .inProgress, .success:
             break

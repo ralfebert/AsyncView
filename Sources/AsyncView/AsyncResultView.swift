@@ -13,7 +13,7 @@ public struct AsyncResultView<T, Content: View>: View {
 
     public var body: some View {
         switch result {
-        case .ready:
+        case .empty:
             // This is a workaround: EmptyView doesn't work here because then one layer up
             // in AsyncModelView the task would not be executed...
             Text("")
@@ -22,18 +22,7 @@ public struct AsyncResultView<T, Content: View>: View {
         case let .success(value):
             content(value)
         case let .failure(error):
-            VStack {
-                Image(systemName: "exclamationmark.icloud")
-                Text(error.localizedDescription)
-                if let reloadAction = reloadAction {
-                    Button(
-                        action: reloadAction,
-                        label: {
-                            Image(systemName: "arrow.clockwise")
-                        }
-                    )
-                }
-            }
+            ErrorView(error: error, reloadAction: reloadAction)
         }
     }
 }
