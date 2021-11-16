@@ -4,7 +4,7 @@ A abstraction for SwiftUI views that load data asynchronously to handle in-progr
 
 ![AsyncView](https://cdn.ralfebert.de/asyncview_states-3aba8003.png)
 
-See [Structuring asynchronous loading operations in SwiftUI](https://www.ralfebert.com/ios-app-development/swiftui/asyncview/) for a tutorial and in-depth explanation of the package.
+See [Structuring asynchronous loading operations in SwiftUI](https://www.ralfebert.com/ios-app-development/swiftui/asyncview/) for a tutorial and in-depth explanation of this package.
 
 ## Example projects
 
