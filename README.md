@@ -37,7 +37,7 @@ Have a look at [MetMuseumEndpoints](https://github.com/ralfebert/MetMuseumEndpoi
 
 ### Calling Endpoints
 
-Explicit model + `AsyncModelView`:
+Using `AsyncModel` and `AsyncModelView`:
 
 ```swift
 import SwiftUI
@@ -56,7 +56,30 @@ struct CountriesView: View {
 }
 ```
 
-Short version with `AsyncView`:
+It is also possible to define the model as a separate class:
+
+```
+!swift
+class CountriesModel: AsyncModel<[Country]> {
+    override func asyncOperation() async throws -> [Country] {
+        try await CountriesEndpoints().countries()
+    }
+}
+
+struct CountriesView: View {
+    @StateObject var countriesModel = CountriesModel()
+
+    var body: some View {
+        AsyncModelView(model: countriesModel) { countries in
+            List(countries) { country in
+                Text(country.name)
+            }
+        }
+    }
+}
+```
+
+For presenting data loaded from a URL endpoint without any additional logic, you can use `AsyncView`:
 
 ```swift
 import SwiftUI
