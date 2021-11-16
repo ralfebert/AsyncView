@@ -60,8 +60,7 @@ struct CountriesView: View {
 
 It is also possible to define the model as a separate class:
 
-```
-!swift
+```swift
 class CountriesModel: AsyncModel<[Country]> {
     override func asyncOperation() async throws -> [Country] {
         try await CountriesEndpoints().countries()
