@@ -4,7 +4,7 @@ AsyncView is a SwiftUI View for handling in-progress and error states when loadi
 
 ![Countries example](https://cdn.ralfebert.de/asyncview_states-3aba8003.png)
 
-See [Structuring asynchronous loading operations in SwiftUI](https://www.ralfebert.com/ios-app-development/swiftui/asyncview/) for a tutorial and in-depth explanation of this package.
+See my blog post "[Structuring asynchronous loading operations in SwiftUI](https://www.ralfebert.com/ios-app-development/swiftui/asyncview/)" for a tutorial and in-depth explanation of this package.
 
 ## Example projects
 
