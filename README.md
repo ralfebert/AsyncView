@@ -19,7 +19,7 @@ See [Structuring asynchronous loading operations in SwiftUI](https://www.ralfebe
 
 ### Endpoints
 
-Define a type for all endpoints and implement a method for every remote call. For example, to load a [JSON list of countries](https://www.ralfebert.de/examples/v3/countries.json):
+I recommend to define a type for every API and implement a method for every endpoint/remote call. For example, to load a [JSON list of countries](https://www.ralfebert.de/examples/v3/countries.json):
 
 ```swift
 struct Country: Identifiable, Codable {
