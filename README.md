@@ -4,6 +4,11 @@ A abstraction for SwiftUI views that load data asynchronously: Handle in-progres
 
 ![AsyncView](https://cdn.ralfebert.de/asyncview_states-3aba8003.png)
 
+## Example projects
+
+* List of countries: [Countries - Branch swiftui3-factbook-asyncview](https://github.com/ralfebert/Countries/tree/swiftui3-factbook-asyncview)
+* Random artwork from the Met Museum API: [MuseumGuide](https://github.com/ralfebert/MuseumGuide)
+ 
 ## Howto
 
 ### Endpoints
@@ -70,9 +75,3 @@ struct CountriesView: View {
     }
 }
 ```
-
-Example project:
-
-* Simple list of countries: [Countries - Branch swiftui3-factbook-asyncview](https://github.com/ralfebert/Countries/tree/swiftui3-factbook-asyncview)
-* Showing a random artwork from the Met Museum API: [MuseumGuide](https://github.com/ralfebert/MuseumGuide)
- 
