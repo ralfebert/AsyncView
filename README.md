@@ -6,7 +6,7 @@ A starting point for an abstraction for SwiftUI views that load data asynchronou
 
 ### Endpoints
 
-Define a type for all endpoints and implement a method for every remote call. For example:
+Define a type for all endpoints and implement a method for every remote call. For example, to load a [JSON list of countries](https://www.ralfebert.de/examples/v3/countries.json):
 
 ```swift
 struct Country: Identifiable, Codable {
