@@ -4,17 +4,6 @@ AsyncView is a SwiftUI View for handling in-progress and error states when loadi
 
 ![Countries example](https://cdn.ralfebert.de/asyncview_states-3aba8003.png)
 
-See my blog post "[Structuring asynchronous loading operations in SwiftUI](https://www.ralfebert.com/ios-app-development/swiftui/asyncview/)" for a tutorial and in-depth explanation of this package.
-
-## Example projects
-
-[Countries - Branch swiftui3-factbook-asyncview](https://github.com/ralfebert/Countries/tree/swiftui3-factbook-asyncview) shows a list of countries.
-
-[MuseumGuide](https://github.com/ralfebert/MuseumGuide) loads a random artwork from the Met Museum API:
-
-![MuseumGuide example](https://github.com/ralfebert/MuseumGuide/raw/main/docs/museum-example-xcode.jpg)
-
-
 ## Howto
 
 ### Endpoints
@@ -43,7 +32,27 @@ Have a look at [MetMuseumEndpoints](https://github.com/ralfebert/MetMuseumEndpoi
 
 ### Calling Endpoints
 
-Using `AsyncModel` and `AsyncModelView`:
+For presenting data loaded from a URL endpoint directly in a SwiftUI View, you can use `AsyncView`:
+
+```swift
+import SwiftUI
+import AsyncView
+
+struct CountriesView: View {
+    var body: some View {
+        AsyncView(
+            operation: { try await CountriesEndpoints().countries() },
+            content: { countries in
+                List(countries) { country in
+                    Text(country.name)
+                }
+            }
+        )
+    }
+}
+```
+
+It is also possible to extract the loading operation as a model instance using `AsyncModel` and use `AsyncModelView`:
 
 ```swift
 import SwiftUI
@@ -62,7 +71,7 @@ struct CountriesView: View {
 }
 ```
 
-It is also possible to define the model as a separate class:
+For more complex models, you can also define the model as a separate class:
 
 ```swift
 class CountriesModel: AsyncModel<[Country]> {
@@ -84,22 +93,17 @@ struct CountriesView: View {
 }
 ```
 
-For presenting data loaded from a URL endpoint without any additional logic, you can use `AsyncView`:
 
-```swift
-import SwiftUI
-import AsyncView
+## Example projects
 
-struct CountriesView: View {
-    var body: some View {
-        AsyncView(
-            operation: { try await CountriesEndpoints().countries() },
-            content: { countries in
-                List(countries) { country in
-                    Text(country.name)
-                }
-            }
-        )
-    }
-}
-```
+[Countries - Branch swiftui3-factbook-asyncview](https://github.com/ralfebert/Countries/tree/swiftui3-factbook-asyncview) shows a list of countries.
+
+[MuseumGuide](https://github.com/ralfebert/MuseumGuide) loads a random artwork from the Met Museum API:
+
+![MuseumGuide example](https://github.com/ralfebert/MuseumGuide/raw/main/docs/museum-example-xcode.jpg)
+
+
+## Documentation
+
+See my blog post "[Structuring asynchronous loading operations in SwiftUI](https://www.ralfebert.com/ios-app-development/swiftui/asyncview/)" for a walk-through tutorial on how to build this package which serves as an in-depth explanation of this package.
+
