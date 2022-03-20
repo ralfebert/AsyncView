@@ -30,7 +30,7 @@ class CountriesEndpoints {
 }
 ```
 
-Have a look at [MetMuseumEndpoints](https://github.com/ralfebert/MetMuseumEndpoints) for a more realistic API.
+Have a look at [MetMuseumEndpoints](https://github.com/ralfebert/MetMuseumEndpoints/blob/main/Sources/MetMuseumEndpoints/MetMuseumEndpoints.swift#L303) for a more realistic API.
 
 ### Loading data for SwiftUI views asynchronously
 
