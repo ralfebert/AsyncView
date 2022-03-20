@@ -1,6 +1,6 @@
 # AsyncView
 
-AsyncView is a SwiftUI View for handling in-progress and error states when loading data asynchronously using async/await:
+AsyncView is a SwiftUI View for handling in-progress and error states when loading data asynchronously using async/await. It's like [AsyncImage](https://developer.apple.com/documentation/swiftui/asyncimage) but for data.
 
 ![Countries example](https://cdn.ralfebert.de/asyncview_states-3aba8003.png)
 
@@ -16,9 +16,11 @@ struct Country: Identifiable, Codable {
     var name: String
 }
 
-struct CountriesEndpoints {
+class CountriesEndpoints {
     let urlSession = URLSession.shared
     let jsonDecoder = JSONDecoder()
+    
+    static let shared = CountriesEndpoints()
 
     func countries() async throws -> [Country] {
         let url = URL(string: "https://www.ralfebert.de/examples/v3/countries.json")!
@@ -41,7 +43,7 @@ import AsyncView
 struct CountriesView: View {
     var body: some View {
         AsyncView(
-            operation: { try await CountriesEndpoints().countries() },
+            operation: { try await CountriesEndpoints.shared.countries() },
             content: { countries in
                 List(countries) { country in
                     Text(country.name)
@@ -59,7 +61,7 @@ import SwiftUI
 import AsyncView
 
 struct CountriesView: View {
-    @StateObject var countriesModel = AsyncModel { try await CountriesEndpoints().countries() }
+    @StateObject var countriesModel = AsyncModel { try await CountriesEndpoints.shared.countries() }
 
     var body: some View {
         AsyncModelView(model: countriesModel) { countries in
@@ -76,7 +78,7 @@ For more complex models, you can also define the model as a separate class:
 ```swift
 class CountriesModel: AsyncModel<[Country]> {
     override func asyncOperation() async throws -> [Country] {
-        try await CountriesEndpoints().countries()
+        try await CountriesEndpoints.shared.countries()
     }
 }
 
