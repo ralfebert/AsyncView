@@ -30,7 +30,7 @@ struct CountriesEndpoints {
 
 Have a look at [MetMuseumEndpoints](https://github.com/ralfebert/MetMuseumEndpoints) for a more realistic API.
 
-### Calling Endpoints
+### Loading data for SwiftUI views asynchronously
 
 For presenting data loaded from a URL endpoint directly in a SwiftUI View, you can use `AsyncView`:
 
