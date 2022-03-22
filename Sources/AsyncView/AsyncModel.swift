@@ -1,8 +1,7 @@
 import SwiftUI
 
-@MainActor
 open class AsyncModel<Success>: ObservableObject {
-    @Published public private(set) var result = AsyncResult<Success>.empty
+    @MainActor @Published public private(set) var result = AsyncResult<Success>.empty
 
     public typealias AsyncOperation = () async throws -> Success
 
@@ -20,6 +19,7 @@ open class AsyncModel<Success>: ObservableObject {
         try await self.asyncOperationBlock()
     }
 
+    @MainActor
     public func load() async {
         if case .inProgress = self.result { return }
         self.result = .inProgress
@@ -31,6 +31,7 @@ open class AsyncModel<Success>: ObservableObject {
         }
     }
 
+    @MainActor
     public func loadIfNeeded() async {
         switch self.result {
         case .empty, .failure:
