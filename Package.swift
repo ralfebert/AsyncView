@@ -4,7 +4,7 @@ import PackageDescription
 
 let package = Package(
     name: "AsyncView",
-    platforms: [.macOS(.v10_15), .iOS(.v15)],
+    platforms: [.macOS(.v11), .iOS(.v15)],
     products: [
         .library(
             name: "AsyncView",
