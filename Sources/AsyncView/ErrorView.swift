@@ -10,7 +10,11 @@ struct ErrorView: View {
             Button(error.localizedDescription) {
                 showingPopover = true
             }
+#if os(iOS)
+            .buttonStyle(.borderedProminent)
+#else
             .buttonStyle(.link)
+#endif
             .popover(isPresented: $showingPopover) {
                 Text(String(NSString(string: "\(error)")))
                     .font(.caption)
