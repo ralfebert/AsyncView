@@ -12,14 +12,16 @@ public struct AsyncModelView<Success, Content: View>: View {
     public var body: some View {
         AsyncResultView(
             result: model.result,
-            reloadAction: { Task { await model.load() } },
+            reloadAction: { Task { await model.load(forceRefreshRequested: true) } },
             content: content
         )
-        .task {
-            await model.loadIfNeeded()
+        .onAppear {
+            Task {
+                await model.loadIfNeeded()
+            }
         }
         .refreshable {
-            await model.load()
+            await model.load(forceRefreshRequested: true)
         }
     }
 }

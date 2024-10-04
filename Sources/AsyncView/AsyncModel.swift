@@ -3,9 +3,9 @@ import SwiftUI
 open class AsyncModel<Success>: ObservableObject {
     @MainActor @Published public private(set) var result = AsyncResult<Success>.empty
 
-    public typealias AsyncOperation = () async throws -> Success
+    public typealias AsyncOperation = (Bool) async throws -> Success
 
-    private var asyncOperationBlock: AsyncOperation = {
+    private var asyncOperationBlock: AsyncOperation = { _ in
         fatalError("Override asyncOperation or pass a asyncOperationBlock to use async model")
     }
 
@@ -15,17 +15,17 @@ open class AsyncModel<Success>: ObservableObject {
         }
     }
 
-    open func asyncOperation() async throws -> Success {
-        try await self.asyncOperationBlock()
+    open func asyncOperation(forceRefreshRequested: Bool) async throws -> Success {
+        try await self.asyncOperationBlock(forceRefreshRequested)
     }
 
     @MainActor
-    public func load() async {
+    public func load(forceRefreshRequested: Bool) async {
         if case .inProgress = self.result { return }
         self.result = .inProgress
 
         do {
-            self.result = .success(try await self.asyncOperation())
+            self.result = .success(try await self.asyncOperation(forceRefreshRequested: forceRefreshRequested))
         } catch {
             self.result = .failure(error)
         }
@@ -35,7 +35,7 @@ open class AsyncModel<Success>: ObservableObject {
     public func loadIfNeeded() async {
         switch self.result {
         case .empty, .failure:
-            await self.load()
+            await self.load(forceRefreshRequested: false)
         case .inProgress, .success:
             break
         }
