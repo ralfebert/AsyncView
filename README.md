@@ -1,6 +1,6 @@
 # AsyncView
 
-AsyncView is a SwiftUI View for handling in-progress and error states when loading data asynchronously using async/await. It's like [AsyncImage](https://developer.apple.com/documentation/swiftui/asyncimage) but for data.
+AsyncView is a starting point for a SwiftUI View that handles in-progress and error states when loading data asynchronously using async/await. It's like [AsyncImage](https://developer.apple.com/documentation/swiftui/asyncimage) but for data.
 
 ![Countries example](https://box-swiftui-garden.fra1.cdn.digitaloceanspaces.com/asyncview_loading_states.jpg)
 
