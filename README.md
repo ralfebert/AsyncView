@@ -11,8 +11,7 @@ AsyncView is like [AsyncImage](https://developer.apple.com/documentation/swiftui
 I recommend to define a type for every API and implement a method for every endpoint/remote call. For example:
 
 ```swift
-struct Artwork: Identifiable, Codable {
-    public var id: String { objectID }
+struct Artwork: Codable {
     var objectID: String
     var objectName: String
 }
